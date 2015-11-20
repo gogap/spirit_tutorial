@@ -52,7 +52,7 @@ func (p *TaskManager) GetTask(taskId string) (task models.Task, err error) {
 	return
 }
 
-func (p *TaskManager) ListTask(userId string) (tasks []models.Task, err error) {
+func (p *TaskManager) ListTask() (tasks []models.Task, err error) {
 	for _, task := range p.tasks {
 		tasks = append(tasks, *task)
 	}

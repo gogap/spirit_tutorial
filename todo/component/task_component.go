@@ -17,8 +17,14 @@ type TaskComponent struct {
 	*controllers.TaskManager
 }
 
-func NewJSONComponent(config spirit.Config) (component spirit.Component, err error) {
-	component = &TaskComponent{}
+func init() {
+	spirit.RegisterComponent(taskComponentURN, NewTaskComponent)
+}
+
+func NewTaskComponent(config spirit.Config) (component spirit.Component, err error) {
+	component = &TaskComponent{
+		TaskManager: controllers.NewTaskManager(),
+	}
 	return
 }
 
@@ -77,6 +83,11 @@ func (p *TaskComponent) GetTask(payload spirit.Payload) (result interface{}, err
 }
 
 func (p *TaskComponent) ListTask(payload spirit.Payload) (result interface{}, err error) {
+
+	if result, err = p.TaskManager.ListTask(); err != nil {
+		return
+	}
+
 	return
 }
 
