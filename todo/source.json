@@ -1,0 +1,7 @@
+{
+    "update_time": "2015-11-11 11:11:11",
+    "packages": [{
+        "urn": "urn:spirit_tutorial:component:todo",
+        "pkg": "github.com/spirit_tutorial/todo/component"
+    }]
+}
