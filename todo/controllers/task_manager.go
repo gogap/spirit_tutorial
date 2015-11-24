@@ -1,10 +1,16 @@
 package controllers
 
 import (
-	"errors"
-	"github.com/gogap/spirit_tutorial/todo/models"
-	"github.com/rs/xid"
 	"time"
+
+	"github.com/gogap/errors"
+	"github.com/rs/xid"
+
+	"github.com/gogap/spirit_tutorial/todo/models"
+)
+
+var (
+	TodoErrorNamespace = "Todo"
 )
 
 type TaskManager struct {
@@ -12,7 +18,7 @@ type TaskManager struct {
 }
 
 var (
-	ErrTaskNotExist = errors.New("task not exist")
+	ErrTaskNotExist = errors.TN(TodoErrorNamespace, 50404, "task not exist, id: {{.id}}")
 )
 
 func NewTaskManager() *TaskManager {
@@ -38,7 +44,7 @@ func (p *TaskManager) DeleteTask(taskId string) (err error) {
 	if _, exist := p.tasks[taskId]; exist {
 		delete(p.tasks, taskId)
 	} else {
-		err = ErrTaskNotExist
+		err = ErrTaskNotExist.New(errors.Params{"id": taskId})
 	}
 	return
 }
@@ -47,7 +53,7 @@ func (p *TaskManager) GetTask(taskId string) (task models.Task, err error) {
 	if t, exist := p.tasks[taskId]; exist {
 		task = *t
 	} else {
-		err = ErrTaskNotExist
+		err = ErrTaskNotExist.New(errors.Params{"id": taskId})
 	}
 	return
 }
@@ -64,7 +70,7 @@ func (p *TaskManager) FinishTask(taskId string) (err error) {
 		t.IsFinished = true
 		t.UpdateTime = time.Now()
 	} else {
-		err = ErrTaskNotExist
+		err = ErrTaskNotExist.New(errors.Params{"id": taskId})
 	}
 	return
 }
