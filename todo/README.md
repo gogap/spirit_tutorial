@@ -3,9 +3,26 @@ Todo Component
 
 #### Run Todo Component
 
+- stand-alone api server
 
 ```bash
-spirit-tool run -c spirit.conf -s source.json -v 5
+spirit-tool run -c 01.spirit_api_todo.conf -s source.json -v 5 -e SPIRIT_ENV="$PWD/todo.env"
+```
+
+- api request to mns queue, and response to api-call-back
+
+> You should have ali-mns account (http://www.aliyun.com/product/mns), similar with amazon sqs, and create following queues: `api-call-back` `todo-task-delete` `todo-task-finish` `todo-task-get` `todo-task-list` `todo-task-new`
+
+```bash
+spirit-tool run -c 02.spirit_mns_api.conf -s source.json -v 5 -e SPIRIT_ENV="$PWD/todo.env"
+spirit-tool run -c 02.spirit_mns_todo.conf -s source.json -v 5 -e SPIRIT_ENV="$PWD/todo.env"
+```
+
+- advance usage of mns queue, the api request will send to mns queue, and it will pass the delivery to next queue.
+
+```bash
+spirit-tool run -c 03.spirit_mns_api.conf -s source.json -v 5 -e SPIRIT_ENV="$PWD/todo.env"
+spirit-tool run -c 03.spirit_mns_todo.conf -s source.json -v 5 -e SPIRIT_ENV="$PWD/todo.env"
 ```
 
 ### API

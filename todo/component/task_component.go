@@ -21,7 +21,7 @@ func init() {
 	spirit.RegisterComponent(taskComponentURN, NewTaskComponent)
 }
 
-func NewTaskComponent(config spirit.Config) (component spirit.Component, err error) {
+func NewTaskComponent(config spirit.Map) (component spirit.Component, err error) {
 	component = &TaskComponent{
 		TaskManager: controllers.NewTaskManager(),
 	}
