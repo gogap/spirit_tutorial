@@ -8,12 +8,14 @@ import (
 )
 
 var _ spirit.Component = new(TaskComponent)
+var _ spirit.Actor = new(TaskComponent)
 
 const (
 	taskComponentURN = "urn:spirit_tutorial:component:todo"
 )
 
 type TaskComponent struct {
+	name string
 	*controllers.TaskManager
 }
 
@@ -21,11 +23,16 @@ func init() {
 	spirit.RegisterComponent(taskComponentURN, NewTaskComponent)
 }
 
-func NewTaskComponent(config spirit.Map) (component spirit.Component, err error) {
+func NewTaskComponent(name string, options spirit.Map) (component spirit.Component, err error) {
 	component = &TaskComponent{
+		name:        name,
 		TaskManager: controllers.NewTaskManager(),
 	}
 	return
+}
+
+func (p *TaskComponent) Name() string {
+	return p.name
 }
 
 func (p *TaskComponent) URN() string {
