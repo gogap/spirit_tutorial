@@ -9,10 +9,6 @@ import (
 	"github.com/gogap/spirit_tutorial/todo/models"
 )
 
-var (
-	TodoErrorNamespace = "Todo"
-)
-
 type TaskManager struct {
 	tasks map[string]*models.Task
 }

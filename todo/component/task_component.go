@@ -1,6 +1,7 @@
 package component
 
 import (
+	"fmt"
 	"github.com/gogap/spirit"
 
 	"github.com/gogap/spirit_tutorial/todo/controllers"
@@ -8,10 +9,9 @@ import (
 )
 
 var _ spirit.Component = new(TaskComponent)
-var _ spirit.Actor = new(TaskComponent)
 
 const (
-	taskComponentURN = "urn:spirit_tutorial:component:todo"
+	taskComponentURN = "urn:spirit_tutorial:component:todo:task"
 )
 
 type TaskComponent struct {
