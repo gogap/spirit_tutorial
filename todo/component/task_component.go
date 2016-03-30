@@ -1,7 +1,6 @@
 package component
 
 import (
-	"fmt"
 	"github.com/gogap/spirit"
 
 	"github.com/gogap/spirit_tutorial/todo/controllers"
